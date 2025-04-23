@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Compound Interest Calculator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compound Interest Calculator (USD)</title>
   <meta name="description" content="Calculate your investment growth with our easy-to-use Compound Interest Calculator. Enter principal, interest rate, time, and compounding frequency to see your future value and total interest in USD." />
 <meta name="robots" content="index,follow"> 
   <link rel="canonical" href="https://newcompound-interest-calculator.netlify.app">
-  <script type="application/ld+json">
-{
+
+  {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Compound Interest Calculator",
@@ -42,73 +43,190 @@
 <meta property="og:image" content="https://i.postimg.cc/mgVHWYpR/dollar.jpg" />
 <meta property="og:image:alt" content="Compound Interest Calculator interface screenshot" />
 <meta property="og:site_name" content="Compound Interest Calculator" />
-
   
   <style>
-    body { font-family: Arial, sans-serif; background: #f8f8f8; margin: 0; padding: 0; }
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
     .container {
       background: #fff;
-      max-width: 400px;
-      margin: 40px auto;
-      padding: 30px 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    h2 { text-align: center; color: #333; }
-    label { display: block; margin-top: 15px; color: #444; }
-    input, select {
+      max-width: 420px;
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      font-size: 1em;
+      padding: 30px 35px;
+      border-radius: 12px;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      transition: box-shadow 0.3s ease;
+    }
+    .container:hover {
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #222;
+      letter-spacing: 0.05em;
+    }
+    label {
+      display: block;
+      margin-top: 18px;
+      font-weight: 600;
+      color: #555;
+      font-size: 1rem;
+    }
+    input,
+    select {
+      margin-top: 8px;
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline-offset: 2px;
+      outline-color: transparent;
+      font-weight: 500;
+      color: #222;
+      background-color: #fafafa;
+      box-shadow: inset 1px 1px 3px #f0f0f0;
+    }
+    input:focus,
+    select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+      outline-color: #007bff;
+      background-color: #fff;
     }
     button {
+      margin-top: 28px;
       width: 100%;
-      margin-top: 22px;
-      padding: 10px;
-      background: #007bff;
+      padding: 14px;
+      font-size: 1.15rem;
+      font-weight: 700;
       color: #fff;
+      background: #007bff;
       border: none;
-      border-radius: 4px;
-      font-size: 1.1em;
+      border-radius: 10px;
       cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
     }
-    button:hover { background: #0056b3; }
+    button:disabled {
+      background: #a3c0ff;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    button:not(:disabled):hover {
+      background-color: #0056b3;
+      box-shadow: 0 8px 18px rgba(0, 86, 179, 0.7);
+    }
     .result {
-      margin-top: 25px;
+      margin-top: 30px;
+      padding: 20px;
       background: #e6ffe6;
-      border: 1px solid #b2ffb2;
-      padding: 15px;
-      border-radius: 4px;
+      border: 2px solid #b2ffb2;
+      border-radius: 10px;
       color: #225522;
-      font-weight: bold;
+      font-weight: 700;
+      font-size: 1.25rem;
       text-align: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      user-select: text;
+      min-height: 72px;
+    }
+    .result.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .note {
-      margin-top: 20px;
-      font-size: 0.95em;
+      margin-top: 22px;
+      font-size: 0.9rem;
       color: #666;
       text-align: center;
+      font-style: italic;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px 20px;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" role="main" aria-label="Compound Interest Calculator">
     <h2>Compound Interest Calculator</h2>
-    <form id="ciForm" onsubmit="calculateCI(event)">
-      <label for="principal">Principal Amount (₹):</label>
-      <input type="number" id="principal" min="0" step="0.01" required>
+    <form id="ciForm" novalidate>
+      <label for="principal">Principal Amount (USD):</label>
+      <input
+        type="number"
+        id="principal"
+        name="principal"
+        min="0"
+        step="0.01"
+        placeholder="e.g. 1000"
+        required
+        aria-required="true"
+        aria-describedby="principalHelp"
+      />
+      <small id="principalHelp" style="display:none; color:#d33;">Please enter a valid amount.</small>
 
       <label for="rate">Annual Interest Rate (%):</label>
-      <input type="number" id="rate" min="0" step="0.01" required>
+      <input
+        type="number"
+        id="rate"
+        name="rate"
+        min="0"
+        step="0.01"
+        placeholder="e.g. 5"
+        required
+        aria-required="true"
+        aria-describedby="rateHelp"
+      />
+      <small id="rateHelp" style="display:none; color:#d33;">Please enter a valid interest rate.</small>
 
       <label for="years">Time (Years):</label>
-      <input type="number" id="years" min="1" step="1" required>
+      <input
+        type="number"
+        id="years"
+        name="years"
+        min="1"
+        step="1"
+        placeholder="e.g. 10"
+        required
+        aria-required="true"
+        aria-describedby="yearsHelp"
+      />
+      <small id="yearsHelp" style="display:none; color:#d33;">Please enter a valid number of years.</small>
 
       <label for="frequency">Compounding Frequency:</label>
-      <select id="frequency" required>
+      <select id="frequency" name="frequency" required aria-required="true">
+        <option value="">-- Select Frequency --</option>
         <option value="1">Annually</option>
         <option value="2">Semi-Annually</option>
         <option value="4">Quarterly</option>
@@ -116,33 +234,77 @@
         <option value="365">Daily</option>
       </select>
 
-      <button type="submit">Calculate</button>
+      <button type="submit" id="calcBtn" disabled>Calculate</button>
     </form>
-    <div class="result" id="result"></div>
+    <div class="result" id="result" aria-live="polite" aria-atomic="true"></div>
     <div class="note">
       <strong>Note:</strong> This calculator assumes reinvestment of interest and no withdrawals.
     </div>
   </div>
+
   <script>
-    function calculateCI(event) {
+    const form = document.getElementById('ciForm');
+    const calcBtn = document.getElementById('calcBtn');
+    const resultDiv = document.getElementById('result');
+
+    // Input elements
+    const principalInput = document.getElementById('principal');
+    const rateInput = document.getElementById('rate');
+    const yearsInput = document.getElementById('years');
+    const frequencySelect = document.getElementById('frequency');
+
+    // Validation helpers
+    function validateInput(input, min) {
+      const val = parseFloat(input.value);
+      return !isNaN(val) && val >= min;
+    }
+
+    function validateForm() {
+      const principalValid = validateInput(principalInput, 0);
+      const rateValid = validateInput(rateInput, 0);
+      const yearsValid = validateInput(yearsInput, 1);
+      const freqValid = frequencySelect.value !== '';
+
+      // Show/hide error messages
+      document.getElementById('principalHelp').style.display = principalValid ? 'none' : 'block';
+      document.getElementById('rateHelp').style.display = rateValid ? 'none' : 'block';
+      document.getElementById('yearsHelp').style.display = yearsValid ? 'none' : 'block';
+
+      calcBtn.disabled = !(principalValid && rateValid && yearsValid && freqValid);
+    }
+
+    // Attach input event listeners to validate form live
+    [principalInput, rateInput, yearsInput, frequencySelect].forEach(el =>
+      el.addEventListener('input', validateForm)
+    );
+
+    // Initial validation check
+    validateForm();
+
+    form.addEventListener('submit', event => {
       event.preventDefault();
 
-      // Get user inputs
-      const P = parseFloat(document.getElementById('principal').value);
-      const r = parseFloat(document.getElementById('rate').value) / 100;
-      const t = parseFloat(document.getElementById('years').value);
-      const n = parseInt(document.getElementById('frequency').value);
+      const principal = parseFloat(principalInput.value);
+      const rate = parseFloat(rateInput.value) / 100;
+      const years = parseFloat(yearsInput.value);
+      const frequency = parseInt(frequencySelect.value);
 
       // Compound Interest Formula: A = P * (1 + r/n)^(n*t)
-      const A = P * Math.pow((1 + r/n), n*t);
-      const interest = A - P;
+      const amount = principal * Math.pow(1 + rate / frequency, frequency * years);
+      const interest = amount - principal;
 
-      // Show results with 2 decimal places
-      document.getElementById('result').innerHTML = `
-        Future Value: <strong>₹${A.toFixed(2)}</strong><br>
-        Total Interest: <strong>₹${interest.toFixed(2)}</strong>
+      // Display results with animation
+      resultDiv.innerHTML = `
+        Future Value: <strong>$${amount.toFixed(2)}</strong><br />
+        Total Interest: <strong>$${interest.toFixed(2)}</strong>
       `;
-    }
+      resultDiv.classList.add('visible');
+
+      // Scroll result into view on small screens
+      if (window.innerWidth < 600) {
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
   </script>
 </body>
 </html>
