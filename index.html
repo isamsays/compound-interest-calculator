@@ -2,14 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Compound Interest Calculator (USD)</title>
+  <title>Compound Interest Calculator</title>
+  <meta name="description" content="Calculate your investment growth with our easy-to-use Compound Interest Calculator. Enter principal, interest rate, time, and compounding frequency to see your future value and total interest in USD." />
+<meta name="robots" content="index,follow"> 
+  <link rel="canonical" href="https://newcompound-interest-calculator.netlify.app">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Compound Interest Calculator",
+  "url": "https://newcompound-interest-calculator.netlify.app",
+  "description": "Calculate your investment growth with our easy-to-use Compound Interest Calculator. Enter principal, interest rate, time, and compounding frequency to see your future value and total interest in USD.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript enabled",
+  "featureList": [
+    "Calculate future value of investments",
+    "Supports multiple compounding frequencies",
+    "Displays total interest earned"
+  ],
+  "creator": {
+    "@type": "Organization",
+    "name": "Muhammad Azeem Uz Zaman Bhatti",
+    "url": "facebook.com/azeem2kool"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+  <!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Compound Interest Calculator (USD)" />
+<meta property="og:description" content="Calculate your investment growth with our easy-to-use Compound Interest Calculator. Enter principal, interest rate, time, and compounding frequency to see your future value and total interest." />
+<meta property="og:url" content="https://facebook.com/azeem2kool" />
+<meta property="og:image" content="https://i.postimg.cc/mgVHWYpR/dollar.jpg" />
+<meta property="og:image:alt" content="Compound Interest Calculator interface screenshot" />
+<meta property="og:site_name" content="Compound Interest Calculator" />
+
+  
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f8fb;
-      margin: 0;
-      padding: 0;
-    }
+    body { font-family: Arial, sans-serif; background: #f8f8f8; margin: 0; padding: 0; }
     .container {
       background: #fff;
       max-width: 400px;
@@ -18,21 +54,14 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    h2 {
-      text-align: center;
-      color: #222;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      color: #333;
-    }
+    h2 { text-align: center; color: #333; }
+    label { display: block; margin-top: 15px; color: #444; }
     input, select {
       width: 100%;
       padding: 8px;
       margin-top: 5px;
       border-radius: 4px;
-      border: 1px solid #bbb;
+      border: 1px solid #ccc;
       font-size: 1em;
     }
     button {
@@ -46,9 +75,7 @@
       font-size: 1.1em;
       cursor: pointer;
     }
-    button:hover {
-      background: #0056b3;
-    }
+    button:hover { background: #0056b3; }
     .result {
       margin-top: 25px;
       background: #e6ffe6;
@@ -71,7 +98,7 @@
   <div class="container">
     <h2>Compound Interest Calculator</h2>
     <form id="ciForm" onsubmit="calculateCI(event)">
-      <label for="principal">Principal Amount (USD):</label>
+      <label for="principal">Principal Amount (₹):</label>
       <input type="number" id="principal" min="0" step="0.01" required>
 
       <label for="rate">Annual Interest Rate (%):</label>
@@ -101,19 +128,19 @@
       event.preventDefault();
 
       // Get user inputs
-      const principal = parseFloat(document.getElementById('principal').value);
-      const rate = parseFloat(document.getElementById('rate').value) / 100;
-      const years = parseFloat(document.getElementById('years').value);
-      const frequency = parseInt(document.getElementById('frequency').value);
+      const P = parseFloat(document.getElementById('principal').value);
+      const r = parseFloat(document.getElementById('rate').value) / 100;
+      const t = parseFloat(document.getElementById('years').value);
+      const n = parseInt(document.getElementById('frequency').value);
 
       // Compound Interest Formula: A = P * (1 + r/n)^(n*t)
-      const amount = principal * Math.pow((1 + rate / frequency), frequency * years);
-      const interest = amount - principal;
+      const A = P * Math.pow((1 + r/n), n*t);
+      const interest = A - P;
 
       // Show results with 2 decimal places
       document.getElementById('result').innerHTML = `
-        Future Value: <strong>$${amount.toFixed(2)}</strong><br>
-        Total Interest: <strong>$${interest.toFixed(2)}</strong>
+        Future Value: <strong>₹${A.toFixed(2)}</strong><br>
+        Total Interest: <strong>₹${interest.toFixed(2)}</strong>
       `;
     }
   </script>
